@@ -11,7 +11,7 @@ Cawdio has no Cawdio accounts, analytics or developer-operated servers.
 
 ## Browser extension
 
-On YouTube Music, the extension reads the current track's title, artist, album, artwork URL and song link, along with playback position, duration, pause state and whether an ad is showing. It sends these details to Cawdio for Windows over the loopback interface (`127.0.0.1`) to provide now-playing information. The extension also reads and changes the desktop app's “Share on Discord” setting when you use its popup.
+On YouTube Music, the extension reads the current track's title, artist, album, artwork URL and song link. On YouTube watch and Shorts pages, it reads the current video's ID, title and channel, and builds the thumbnail and watch URLs from the ID. In both players it also reads playback position, duration, pause state and whether an ad is showing. It sends these details to Cawdio for Windows over the loopback interface (`127.0.0.1`) to provide now-playing information. The extension also reads and changes the desktop app's “Share on Discord” setting when you use its popup.
 
 The extension stores the desktop access token and port in local browser storage. Its popup uses temporary session storage for diagnostics, which can include the last reported song title and connection status. Native messaging provides the access token and port. The extension itself communicates only with the desktop app on the same PC.
 
@@ -20,8 +20,9 @@ The Cawdio extension's use of information received from Chrome complies with the
 ## Desktop app
 
 - **Discord status.** Sharing is on by default. The desktop app sends current track details, which may include artwork and the song link, to Discord through the local Discord app for display on your profile. You can turn sharing off in the Cawdio tray menu or extension popup.
-- **Cover art.** The desktop app can request the cover image supplied by YouTube Music from its image host. If you enable online cover lookup, Cawdio can send track information to Apple iTunes Search and, if needed, Deezer to find cover art. You can turn online lookup off in the tray menu.
+- **Cover art.** The desktop app can request YouTube thumbnails from `i.ytimg.com` and YouTube Music artwork from its image host. If you enable online cover lookup, Cawdio can send track information to Apple iTunes Search and, if needed, Deezer to find cover art. You can turn online lookup off in the tray menu.
 - **Paired devices.** Cawdio streams the PC's captured audio and playback information to devices you pair. The browser player uses WebRTC on your local network or through a private network such as Tailscale. Native connections use iroh and may go through n0's public relays by default. With iroh, a relay can observe connection metadata while the stream contents remain end-to-end encrypted. Cawdio does not download or save music files.
+- **Device names.** The web player uses browser-provided device information to suggest a name. The PC saves the name you submit and when the pairing was last used. You can rename or forget the device from the tray. By default, web pairings expire after 30 days without use.
 
 ## Removing local data
 
